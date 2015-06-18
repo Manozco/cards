@@ -1,26 +1,12 @@
 package cards
 
-import "fmt"
+import "math/rand"
 
 //Face represents the Face of a Card, e.g: A, K, Q, V, 10, 9, ...
 type Face int
 
-//Color is an int
-type Color int
-
 //Value represents the number of points of the cards (for the blackjack)
 type Value int
-
-//Card ...
-type Card struct {
-	color Color
-	face  Face
-}
-
-// No joker for the moment
-type deck [52]Card
-
-type game [8]deck
 
 // All The faces possible
 const (
@@ -37,14 +23,6 @@ const (
 	Queen Face = iota
 	King  Face = iota
 	Ace   Face = iota
-)
-
-//Enum for our colors
-const (
-	Spade   Color = iota
-	Club    Color = iota
-	Heart   Color = iota
-	Diamond Color = iota
 )
 
 var values = [...]Value{
@@ -69,6 +47,24 @@ var FaceValue = map[Face][]Value{
 	Two:   {2},
 }
 
-func (c Card) String() string {
-	return fmt.Sprintf("%v/%v", c.face, c.color)
+//IsValid checks the validity of a Face
+func (f Face) IsValid() bool {
+	return (f >= Two && f <= Ace)
+}
+
+//IsValid checks the validity of a Value
+func (v Value) IsValid() bool {
+	ret := false
+	for _, val := range values {
+		if val == v {
+			ret = true
+			break
+		}
+	}
+	return ret
+}
+
+//RandFace : Returns a random face
+func RandFace() Face {
+	return Face(rand.Int31n(int32(Ace) + 1))
 }
