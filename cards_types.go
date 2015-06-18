@@ -11,6 +11,17 @@ type Color int
 //Value represents the number of points of the cards (for the blackjack)
 type Value int
 
+//Card ...
+type Card struct {
+	color Color
+	face  Face
+}
+
+// No joker for the moment
+type deck [52]Card
+
+type game [8]deck
+
 // All The faces possible
 const (
 	Two   Face = iota
@@ -53,16 +64,11 @@ var FaceValue = map[Face][]Value{
 	Six:   {6},
 	Five:  {5},
 	Four:  {4},
+
 	Three: {3},
 	Two:   {2},
 }
 
-//Card ...
-type Card struct {
-	color Color
-	face  Face
-}
-
 func (c Card) String() string {
-	return fmt.Sprintf("%v - %v", c.face, c.color)
+	return fmt.Sprintf("%v/%v", c.face, c.color)
 }

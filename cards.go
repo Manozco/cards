@@ -82,3 +82,46 @@ func NewCardRandom() Card {
 	ret, _ := NewCard(f, c)
 	return ret
 }
+
+//NewDeck : Initializes a deck
+func NewDeck() deck {
+	var ret deck
+	i := 0
+	for c := Spade; c <= Diamond; c++ {
+		for f := Two; f <= Ace; f++ {
+			card, err := NewCard(f, c)
+			if err == nil {
+				ret[i] = card
+				i++
+			}
+		}
+	}
+	return ret
+}
+
+//NewGame : Initializes a new game
+func NewGame() game {
+	var ret game
+	for i := 0; i < len(ret); i++ {
+		ret[i] = NewDeck()
+	}
+	return ret
+}
+
+//Shuffle : Shuffle a deck
+func (d *deck) Shuffle() {
+	for i := 0; i < len(d); i++ {
+		j := rand.Intn(i + 1)
+		d[i], d[j] = d[j], d[i]
+	}
+}
+
+//Shuffle : Shuffle a game
+func (g *game) Shuffle() {
+	for i := 0; i < len(g); i++ {
+		j := rand.Intn(i + 1)
+		g[i].Shuffle()
+		g[j].Shuffle()
+		g[i], g[j] = g[j], g[i]
+	}
+}
