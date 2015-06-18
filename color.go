@@ -3,7 +3,7 @@ package cards
 import "math/rand"
 
 //Color is an int
-type Color int
+type Color uint8
 
 //Enum for our colors
 const (

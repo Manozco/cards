@@ -3,10 +3,10 @@ package cards
 import "math/rand"
 
 //Face represents the Face of a Card, e.g: A, K, Q, V, 10, 9, ...
-type Face int
+type Face uint8
 
 //Value represents the number of points of the cards (for the blackjack)
-type Value int
+type Value uint8
 
 // All The faces possible
 const (
